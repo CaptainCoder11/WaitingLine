@@ -1,11 +1,9 @@
-    FROM node:16-alpine as build-step
-    RUN mkdir -p /app
-    WORKDIR /app
-    COPY package.json /app
-    RUN npm install
-    COPY . /app
-    RUN npm run build --prod
+    FROM node:16-alpine
 
- FROM nginx:1.20.1
-    COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
-    EXPOSE 3000
+    COPY . .
+
+    EXPOSE 4000
+
+    CMD ["node", "dist/frontend/server/main.js"]
+
+
