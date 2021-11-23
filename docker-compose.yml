@@ -17,47 +17,51 @@ services:
     ports:
       - 3333:3333
     environment:
-      CONFIG_MYSQL_DATABASE: WaitingLinedb
-      CONFIG_MYSQL_USER: root
-      CONFIG_MYSQL_PASSWORD: secret
-      CONFIG_MYSQL_HOST: db
-      # from the backend, connect to MySQL via the "db" hostname on port 3306
-      CONFIG_MYSQL_PORT: 3306
-    depends_on:
-      - db
-    restart: always
+      - DB_SERVER=postgres
+    links:
+     - postgres  
 
-  db:
-    container_name: db
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
+  postgres:
+    container_name: postgresdb
+    image: postgres:10.5
     environment:
-      MYSQL_HOST_IP: db
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: cookbookdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
+      - POSTGRES_DB:WaitingList
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+          options:
+            max-size: 10m
+            max-file: "3"
     ports:
-      - "11000:8000"
-      - "13306:3306"
-    restart: always
+      - "5432:5432"
+    volumes: 
+          - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - postgres
 
-  adminer:
-    image: adminer
-    ports:
-      - "8082:8080"
-    restart: always
+  pgadmin:
+      container_name: pgadmin_container
+      image: dpage/pgadmin4
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - db
-    ports:
-      - "3029:80"
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: secret
-      PMA_HOST: db
-      PMA_PORT: 3306
-    restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@waitinglist.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+        PGADMIN_CONFIG_SERVER_MODE: 'False'
+
+      volumes:
+        - pgadmin:/var/lib/pgadmin
+
+      ports:
+        - "5050:80"
+      networks:
+        - postgres
+      restart: unless-stopped
+
+networks:
+    postgres:
+      driver: bridge
+
+volumes:
+      postgres:
+      pgadmin:
     
