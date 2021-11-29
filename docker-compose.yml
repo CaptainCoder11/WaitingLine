@@ -5,11 +5,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    volumes:
-      - '.:/app'
-      - '/app/node_modules'
     ports:
       - '4000:4000'
+    restart: always
 
   backend:
     build: ./backend
@@ -24,22 +22,41 @@ services:
       - DB_SERVER=0.0.0.0
     links:
      - db  
+    depends_on:
+     - flyway
+  flyway:
+    image: boxfuse/flyway:5-alpine
+    command: -url=jdbc:postgresql://postgres:5432/WaitingLine -schemas=public -user=postgres -password=postgres
+    volumes:
+      - ./migration:/flyway/sql
+    depends_on:
+      db:
+        condition: service_healthy   
 
   db:
-    image: postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 5s
+      timeout: 1s
+      retries: 2  
 
   pgadmin:
       container_name: pgadmin_container
       image: dpage/pgadmin4
 
       environment:
-        PGADMIN_DEFAULT_EMAIL: admin@waitinglist.com
+        PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
         PGADMIN_DEFAULT_PASSWORD: admin
-        PGADMIN_CONFIG_SERVER_MODE: 'False'
+
+      depends_on:
+        - db  
 
       volumes:
         - pgadmin:/var/lib/pgadmin
@@ -48,7 +65,7 @@ services:
         - "5050:80"
       networks:
         - postgres
-      restart: always
+      restart: unless-stopped
 
 networks:
     postgres:

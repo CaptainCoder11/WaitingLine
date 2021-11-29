@@ -1,16 +1,17 @@
-from sqlalchemy.sql.expression import null
+from sqlalchemy.sql.sqltypes import LargeBinary
 from .db import Base
-from sqlalchemy import String,Boolean,Integer,Column,Text
+from sqlalchemy import Boolean , Enum ,  Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
+from struct import *
 
-class Item(Base):
-    __tablename__='items'
-    id=Column(Integer,primary_key=True)
-    name=Column(String(255),nullable=False,unique=True)
-    description=Column(Text)
-    price=Column(Integer,nullable=False)
-    on_offer=Column(Boolean,default=False)
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True , autoincrement=True)
+    name = Column(String)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    profile_picture = Column(LargeBinary)
+    role = Column(Enum('OWNER','EMPLOYEE','REGULAR' , name = 'roles'))
 
-
-    def __repr__(self):
-        return f"<Item name={self.name} price={self.price}>"
+    
