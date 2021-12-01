@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from sqlalchemy.sql.expression import false, select
-from ...schemas import UserModel
-from ...db import SessionLocal
-from ...models import User as u
+from ...schemas.schemas import UserModel
+from ...database.db import SessionLocal
+from ...models.models import User as u
 from typing import Optional,List
 from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
@@ -28,4 +28,13 @@ def get_user():
 @router.post("/get_user_id")
 def get_user_id(user : UserModel):
     return db.query(u).filter(u.id == user.id).first()
+
+
+@router.post("/check_login")
+def check_login(user: UserModel):
+    res = db.query(u).filter(u.email == user.email).first()
+    if res.hashed_password == user.hashed_password:
+        return "Login Successful!"
+    else:
+        return "Login Failed!"
 

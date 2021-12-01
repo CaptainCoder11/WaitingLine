@@ -1,8 +1,8 @@
+from pydantic import main
 from sqlalchemy.orm import Session
-from .db import Base,engine
+from .database.db import Base,engine,database
 from fastapi import FastAPI,status,HTTPException
-from .db import SessionLocal,database
-from .apis.base import api_router
+from .apis.version1.main_route import mainroute
 
 def init_db():
     print("Creating database ....")
@@ -21,5 +21,5 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-app.include_router(api_router)
+app.include_router(mainroute)
 
