@@ -5,7 +5,7 @@ from fastapi.params import File
 from pydantic import BaseModel
 
 class UserModel(BaseModel): #serializer
-    id:Optional[int]
+    id:Optional[UUID]
     name:Optional[str]
     email:Optional[str]
     hashed_password:Optional[str]
@@ -34,7 +34,8 @@ class StoreModel(BaseModel): #serializer
         
 class AppointmentModel(BaseModel): #serializer
     id:Optional[int]
-    store_id: Optional[UUID]
+    user_id:Optional[UUID]
+    store_id: Optional[int]
     status:Optional[str]
     appointment_number:Optional[UUID]
     time_of_arrival:Optional[datetime]
@@ -44,3 +45,11 @@ class AppointmentModel(BaseModel): #serializer
     class Config:
         orm_mode=True 
         allow_population_by_field_name = True                  
+        
+class Otp(BaseModel):
+    id:Optional[int]
+    user_id:Optional[UUID]
+    email:Optional[str]
+    otp:Optional[int]  
+    class Config:
+        orm_mode = True      

@@ -3,7 +3,6 @@ from sqlalchemy.sql.expression import false, select
 from ...schemas.schemas import StoreModel
 from ...models.models import Store as self_store
 from ...database.db import SessionLocal
-from ...models.models import Store as store
 from typing import Optional,List
 from sqlalchemy.orm.exc import UnmappedClassError, UnmappedInstanceError
 
@@ -26,6 +25,8 @@ def add_store(store : StoreModel):
 def get_store():
     return db.query(self_store).offset(0).limit(100).all()
 
-
-
+@router.get("/get_appointments/{store_id}")
+def get_user(store_id : int):
+    return db.query(self_store).filter(self_store.id == store_id).all()
+    
 

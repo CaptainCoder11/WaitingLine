@@ -14,7 +14,10 @@ db = SessionLocal()
 @router.post("/add_appointment/" , response_model= AppointmentModel)
 def create_user(appt : AppointmentModel):
     print(appt)
-    mappt = appointment(status = appt.status ,
+    mappt = appointment(
+                        user_id = appt.user_id,
+                        store_id = appt.store_id , 
+                       status = appt.status ,
                        time_of_arrival = appt.time_of_arrival , 
                        time_of_departure = appt.time_of_arrival , 
                        date_created = appt.time_of_arrival)
@@ -22,6 +25,10 @@ def create_user(appt : AppointmentModel):
     db.commit()
     return mappt
     
+
+@router.get("/get_appointments/{store_id}")
+def get_user(store_id : int):
+    return db.query(appointment).filter(appointment.store_id == store_id).all()
 
 @router.get("/get_appointments/")
 def get_user():
