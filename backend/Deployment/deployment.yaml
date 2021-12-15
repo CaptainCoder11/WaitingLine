@@ -41,7 +41,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fifo-ingress
-  namespace: fifo-deployment
 spec:
   rules:
   - host: fifo.com
