@@ -1,4 +1,4 @@
-FROM node:10.8.0 as build-stage
+FROM node:16-alpine as build-stage
 WORKDIR /app
 COPY package*.json /app/
 RUN npm install
