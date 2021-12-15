@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi import APIRouter
 from sqlalchemy.sql.expression import false, select
 from ...schemas.schemas import StoreModel
@@ -14,9 +15,12 @@ db = SessionLocal()
 @router.post("/add_store/" , response_model= StoreModel)
 def add_store(store : StoreModel):
     print(store)
-    s = self_store(name = store.name , logo = store.logo , 
-              address = store.address , category = store.category ,
-              openinghour = store.openinghour , closinghour = store.closinghour )
+    openinghour = '10:00:00'
+    closinghour = '22:00:00'
+    s = self_store(name = store.name , logo = store.logo , address = store.address , 
+              category = store.category , 
+              openinghour = openinghour,
+              closinghour = closinghour)
     db.add(s)
     db.commit()
     return s

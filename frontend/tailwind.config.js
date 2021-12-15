@@ -22,6 +22,9 @@ module.exports = {
         DancingScript: ['Dancing Script'],
         Lobster: ['Lobster', 'cursive'],
         DidactGothic: ['Didact Gothic']
+      },
+      height : {
+        135: '34rem'
       }
 
     },

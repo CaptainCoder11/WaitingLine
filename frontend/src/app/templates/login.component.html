@@ -1,14 +1,17 @@
+<loginanim></loginanim>
 <div class="ml-10">
 <div class="flex-col mt-24 w-5/12 h-2/4 ml-auto mr-36">
   <h1 class="text-4xl inline-block m-3 mt-5 text-white font-semibold font-Lobster tracking-widest">Login</h1>
 <div class="flex m-5 mt-10">
   <h1 class="text-xl font-DidactGothic text-white font-thin tracking-widest mr-2">Email</h1>
-  <input class="shadow appearance-none border mx-20 rounded-xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline font-DidactGothic" placeholder="username123@gmail.com"/>
+  <input [(ngModel)]="email" class="shadow appearance-none border mx-20 rounded-xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline font-DidactGothic" placeholder="username123@gmail.com"/>
 </div>
+<h1 class="text-xl font-DancingScript ml-64 text-white font-thin tracking-widest">OR</h1>
 <div class="flex ml-5 mt-5">
-  <h1 class="text-xl font-DidactGothic text-white font-thin tracking-widest">Password </h1>
-  <input class="shadow appearance-none border ml-12 mr-24  rounded-xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="°  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  ° "/>
+  <h1 class="text-xl font-DidactGothic text-white font-thin tracking-widest">Phone Number </h1>
+  <input [(ngModel)]="phone" class="shadow appearance-none border ml-12 mr-24  rounded-xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="(438) - XXX - XXXX"/>
 </div>
-<button class="bg-skin block hover:bg-skindark font-DidactGothic text-white font-bold py-3 px-10 rounded-xl focus:outline-none focus:shadow-outline ml-auto mr-24 mt-4" type="button">Login</button>
+<button (click)="login()" class="bg-skin block hover:bg-skindark font-DidactGothic text-white font-bold py-3 px-10 rounded-xl focus:outline-none focus:shadow-outline ml-auto mr-24 mt-4" type="button">Get Your OTP</button>
 </div>
+<otp></otp>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -10,9 +10,11 @@ import { AnimationOptions } from 'ngx-lottie';
   `,
 })
 export class LoginanimComponent {
+  @Input() path: string = "login.json"
   options: AnimationOptions = {
-    path: '../../assets/login.json',
+    path: `../../assets/${this.path}`,
   };
+
 
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);

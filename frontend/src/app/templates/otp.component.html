@@ -1,0 +1,13 @@
+<div *ngIf='showNgxOtpInput' class="absolute flex flex-col -top-0 left-0  backdrop-filter backdrop-blur-lg w-screen h-screen">
+  <h1 class="text-4xl text-white font-extrabold font-DidactGothic ml-auto mr-auto mt-auto mb-10">Enter Your OTP</h1>
+  <ngx-otp-input
+      #ngxotp
+      [config]='otpInputConfig'
+      [disable]='ngxOtpDisable'
+      [status]='status'
+      (fill)='fillResult = $event'
+      class="ml-auto mr-auto">
+    </ngx-otp-input>
+
+    <button (click)="verify()" class="bg-skin block mb-auto mr-auto hover:bg-skindark font-DidactGothic text-white font-bold py-3 px-10 rounded-xl focus:outline-none focus:shadow-outline ml-auto mt-11" type="button">Verify</button>
+</div>

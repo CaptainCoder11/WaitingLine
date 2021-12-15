@@ -13,6 +13,6 @@ class Config:
     db = os.getenv('DB_NAME')
 
 
-    url =  f"postgresql+psycopg2://{user}:{password}@db/{db}"
+    url =  str("postgresql+psycopg2://root:root@postgres-service/postgres")
 
 config = Config()

@@ -1,0 +1,20 @@
+<div class="flex flex-col pb-10">
+  <div class="w-40 h-10 bg-white ml-auto mr-10 rounded-xl flex p-1">
+    <img src="../../assets/images/search.png" class="w-7 h-7 mt-auto mb-auto p-1">
+    <input class="w-full text-gray-700 mt-auto mb-auto mr-auto" [ngModel]="mymodel" (ngModelChange)="valuechange($event)" placeholder="Search..."/>
+  </div>
+<div class="grid w-screen overflow-scroll h-135 m-3 gap-x-10 gap-y-60 grid-cols-4 grid-rows-3 p-10">
+  <div *ngFor="let store of stores; trackBy: trackstore" (click)="addtoqueue(store)" class="w-64 h-56 flex flex-col bg-white rounded-lg cursor-pointer shadow-xl transform hover:scale-110 hover:-translate-y-1  duration-500 ease-in-out ">
+    <img src="{{'data:image/jpg;base64,' + store.logo}}" class="h-36 p-2"/>
+    <h1 class="text-black font-bold ml-auto mr-auto font-DidactGothic">{{store.name}}</h1>
+    <div class="w-full flex flex-row mt-auto mb-2">
+     <div class="bg-green-400 h-6 w-1/2 rounded-xl m-2">
+       <h1 class="ml-5 text-white font-DidactGothic font-extrabold ">{{store.openinghour}}</h1>
+     </div>
+     <div class="bg-red-400 h-6 w-1/2 rounded-xl m-2">
+      <h1 class="ml-6 text-white font-DidactGothic font-extrabold">{{store.closinghour}}</h1>
+     </div>
+    <div>
+  </div>
+</div>
+</div>
