@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fifo-angular-frontend
-        image: mrpatel1234/fifo:fifo-nginx
+        image: mrpatel1234/fifo:fifo-frontend
         imagePullPolicy: Always
         resources:
           limits:
