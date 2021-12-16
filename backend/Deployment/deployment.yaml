@@ -21,7 +21,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
       imagePullSecrets:
       - name: credentials
 ---
@@ -35,24 +35,8 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: fifo-ingress
-spec:
-  rules:
-  - host: fifo.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: /frontend
-        backend:
-          service:
-            name: fifo-angular-frontend-service
-            port: 
-              number: 8080       
+      port: 80
+   
 
 
 
